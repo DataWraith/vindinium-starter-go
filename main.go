@@ -15,8 +15,8 @@ var (
 	numParallel int
 	numGames    int
 
-	shouldExit   bool
-	gamesPlayerd int
+	arenaMode  bool
+	shouldExit bool
 )
 
 func init() {
@@ -46,16 +46,26 @@ func main() {
 		}
 	}()
 
-	// Set up the options correctly
+	// Check that the options are correct
 	if key == "" {
 		fmt.Println("You must provide an API key with the -k command-line option.")
+		os.Exit(1)
+	}
+
+	if numParallel < 1 {
+		fmt.Printf("The -j command-line option (number of parallel instances) must be at least 1. You provided: %d.\n", numParallel)
+		os.Exit(1)
+	}
+
+	if numGames < 0 {
+		fmt.Printf("The -c command-line option (number of games to play) must be at least 1. You provided: %d.\n", numGames)
 		os.Exit(1)
 	}
 
 	if mode == "training" {
 		numParallel = 1
 	} else if mode == "arena" {
-		// Do nothing
+		arenaMode = true
 	} else {
 		fmt.Printf("Unrecognized mode: %q. Mode must be \"arena\" or \"training\".\n", mode)
 		os.Exit(1)
@@ -67,25 +77,38 @@ func main() {
 		os.Exit(1)
 	}
 
-	_ = bot
+	// Start numParallel instances of the bot
+	gameChan := make(chan struct{}, numParallel)
 
-	c := &Client{
-		Server:    "http://vindinium.org",
-		Key:       "3oli39f3",
-		Bot:       BotRegistry["random"],
-		ArenaMode: false,
+	for i := 0; i < numParallel; i++ {
+		c := &Client{
+			Server:    server,
+			Key:       key,
+			Bot:       bot,
+			ArenaMode: arenaMode,
+		}
+
+		go func(c *Client) {
+			for _ = range gameChan {
+				c.Play()
+			}
+		}(c)
 	}
 
-	for {
-		c.Play()
-
-		numGames--
-		if numGames <= 0 {
-			break
+	// Continuous mode
+	if numGames == 0 {
+		for !shouldExit {
+			gameChan <- struct{}{}
 		}
+		return
+	}
 
+	// Play numGames games
+	for i := 0; i < numGames; i++ {
 		if shouldExit {
-			break
+			return
 		}
+
+		gameChan <- struct{}{}
 	}
 }
