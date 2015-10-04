@@ -53,9 +53,7 @@ func main() {
 	}
 
 	for {
-		result := c.Play()
-		fmt.Println(result)
-		fmt.Println(result.LastState.ViewURL)
+		c.Play()
 
 		numGames--
 		if numGames <= 0 {
