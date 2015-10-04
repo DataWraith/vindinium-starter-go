@@ -5,6 +5,6 @@ type State struct {
 	Game    Game
 	Hero    Hero
 	Token   string
-	ViewUrl string
-	PlayUrl string
+	ViewURL string
+	PlayURL string
 }
