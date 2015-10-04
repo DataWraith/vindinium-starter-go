@@ -60,6 +60,11 @@ func (b Board) Neighbors(pos Position) [4]Position {
 	}
 }
 
+// Passable returns whether the given position on the board is passable
+func (b Board) Passable(pos Position) bool {
+	return b.TileAt(pos) == AirTile
+}
+
 func newBoard(size int, tiles string) (Board, error) {
 	b := Board{
 		Size: size,
