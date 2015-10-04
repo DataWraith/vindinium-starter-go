@@ -3,6 +3,7 @@ package vindinium
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 )
 
 // Board represents the current game board
@@ -37,13 +38,13 @@ func (b Board) TileAt(pos Position) Tile {
 func (b Board) To(pos Position, dir Direction) Position {
 	switch dir {
 	case North:
-		return Position{pos.X, pos.Y - 1}
-	case East:
-		return Position{pos.X + 1, pos.Y}
-	case South:
-		return Position{pos.X, pos.Y + 1}
-	case West:
 		return Position{pos.X - 1, pos.Y}
+	case East:
+		return Position{pos.X, pos.Y + 1}
+	case South:
+		return Position{pos.X + 1, pos.Y}
+	case West:
+		return Position{pos.X, pos.Y - 1}
 	default:
 		return pos
 	}
@@ -63,6 +64,37 @@ func (b Board) Neighbors(pos Position) [4]Position {
 // Passable returns whether the given position on the board is passable
 func (b Board) Passable(pos Position) bool {
 	return b.TileAt(pos) == AirTile
+}
+
+// String returns the String representation of the Board
+func (b Board) String() string {
+	result := ""
+
+	for y := 0; y < b.Size; y++ {
+		for x := 0; x < b.Size; x++ {
+			switch b.TileAt(Position{x, y}) {
+			case AirTile:
+				result += "  "
+
+			case WallTile:
+				result += "##"
+
+			case TavernTile:
+				result += "[]"
+
+			case HeroTile:
+				result += "@"
+				result += strconv.Itoa(b.HeroID[Position{x, y}])
+
+			case MineTile:
+				result += "$"
+				result += strconv.Itoa(b.MineOwner[Position{x, y}])
+			}
+		}
+		result += "\n"
+	}
+
+	return result
 }
 
 func newBoard(size int, tiles string) (Board, error) {
@@ -93,43 +125,43 @@ func newBoard(size int, tiles string) (Board, error) {
 
 			case "[]":
 				b.tiles[idx] = TavernTile
-				b.Taverns[Position{x, y}] = struct{}{}
+				b.Taverns[Position{y, x}] = struct{}{}
 
 			case "$-":
 				b.tiles[idx] = MineTile
-				b.MineOwner[Position{x, y}] = 0
+				b.MineOwner[Position{y, x}] = 0
 
 			case "$1":
 				b.tiles[idx] = MineTile
-				b.MineOwner[Position{x, y}] = 1
+				b.MineOwner[Position{y, x}] = 1
 
 			case "$2":
 				b.tiles[idx] = MineTile
-				b.MineOwner[Position{x, y}] = 2
+				b.MineOwner[Position{y, x}] = 2
 
 			case "$3":
 				b.tiles[idx] = MineTile
-				b.MineOwner[Position{x, y}] = 3
+				b.MineOwner[Position{y, x}] = 3
 
 			case "$4":
 				b.tiles[idx] = MineTile
-				b.MineOwner[Position{x, y}] = 4
+				b.MineOwner[Position{y, x}] = 4
 
 			case "@1":
 				b.tiles[idx] = HeroTile
-				b.HeroID[Position{x, y}] = 1
+				b.HeroID[Position{y, x}] = 1
 
 			case "@2":
 				b.tiles[idx] = HeroTile
-				b.HeroID[Position{x, y}] = 2
+				b.HeroID[Position{y, x}] = 2
 
 			case "@3":
 				b.tiles[idx] = HeroTile
-				b.HeroID[Position{x, y}] = 3
+				b.HeroID[Position{y, x}] = 3
 
 			case "@4":
 				b.tiles[idx] = HeroTile
-				b.HeroID[Position{x, y}] = 4
+				b.HeroID[Position{y, x}] = 4
 
 			default:
 				return Board{}, fmt.Errorf("Board: Could not parse tiles, unknown tile found: %q", tiles[2*idx:2*idx+2])
