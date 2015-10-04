@@ -29,8 +29,8 @@ func (c *Client) Play() {
 	err = c.startGame()
 	if err == nil {
 		err = c.playGame()
-		c.Bot.EndOfGame(err, c.state)
 	}
+	c.Bot.EndOfGame(err, c.state)
 }
 
 func (c *Client) startGame() error {
