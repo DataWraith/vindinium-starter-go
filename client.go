@@ -29,6 +29,7 @@ func (c *Client) Play() GameResult {
 	err = c.startGame()
 	if err == nil {
 		err = c.playGame()
+		c.Bot.EndOfGame(err, c.state)
 	}
 
 	return GameResult{
@@ -54,7 +55,6 @@ func (c *Client) startGame() error {
 	}
 
 	return c.formatResponseError(resp)
-
 }
 
 func (c *Client) playGame() error {
