@@ -100,17 +100,17 @@ func (c *Client) unmarshalState(body io.ReadCloser) error {
 }
 
 func (c Client) formatResponseError(resp *http.Response) error {
+	reason, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("error while reading server response: %s", err.Error())
+	}
+
 	if resp.StatusCode >= 500 {
-		return fmt.Errorf("The server responded with status %d.", resp.StatusCode)
+		return fmt.Errorf("Server error (status %d): %q", resp.StatusCode, string(reason))
 	}
 
 	if resp.StatusCode >= 400 {
-		reason, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			return fmt.Errorf("error while reading server response: %s", err.Error())
-		}
-
-		return fmt.Errorf("Request error (status %d): %s", resp.StatusCode, string(reason))
+		return fmt.Errorf("Request error (status %d): %q", resp.StatusCode, string(reason))
 	}
 
 	return fmt.Errorf("received unexpected status code from server: %d", resp.StatusCode)
