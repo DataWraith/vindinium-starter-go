@@ -138,3 +138,12 @@ and returns your move. The second method is useful for bots that can learn from
 the game outcome or want to print out statistics of the match -- `err` is the
 error that caused the game to be aborted (if any) and `s` is the last-received
 gamestate.
+
+## Questions
+
+Feel free to open GitHub issues for any questions you may have.
+
+## License
+
+This starter-kit is distributed under the unlicense. The the LICENSE file for
+more information.
