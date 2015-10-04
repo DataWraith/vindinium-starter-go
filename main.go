@@ -79,6 +79,7 @@ func main() {
 
 	// Start numParallel instances of the bot
 	gameChan := make(chan struct{}, numParallel)
+	doneChan := make(chan struct{}, numParallel)
 
 	for i := 0; i < numParallel; i++ {
 		c := &Client{
@@ -92,23 +93,30 @@ func main() {
 			for _ = range gameChan {
 				c.Play()
 			}
+			doneChan <- struct{}{}
 		}(c)
 	}
 
-	// Continuous mode
 	if numGames == 0 {
+		// Continuous mode
 		for !shouldExit {
 			gameChan <- struct{}{}
 		}
-		return
+	} else {
+		// Play numGames games
+		for i := 0; i < numGames; i++ {
+			if shouldExit {
+				break
+			}
+
+			gameChan <- struct{}{}
+		}
 	}
 
-	// Play numGames games
-	for i := 0; i < numGames; i++ {
-		if shouldExit {
-			return
-		}
+	close(gameChan)
 
-		gameChan <- struct{}{}
+	// Wait for the running games to finish
+	for i := 0; i < numParallel; i++ {
+		<-doneChan
 	}
 }
