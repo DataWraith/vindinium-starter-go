@@ -49,6 +49,17 @@ func (b Board) To(pos Position, dir Direction) Position {
 	}
 }
 
+// Neighbors is a convenience function that returns an array with the positions
+// that lie adjacent to the given position.
+func (b Board) Neighbors(pos Position) [4]Position {
+	return [4]Position{
+		b.To(pos, North),
+		b.To(pos, East),
+		b.To(pos, South),
+		b.To(pos, West),
+	}
+}
+
 func newBoard(size int, tiles string) (Board, error) {
 	b := Board{
 		Size: size,
