@@ -145,5 +145,5 @@ Feel free to open GitHub issues for any questions you may have.
 
 ## License
 
-This starter-kit is distributed under the unlicense. The the LICENSE file for
+This starter-kit is distributed under the unlicense. See the LICENSE file for
 more information.
