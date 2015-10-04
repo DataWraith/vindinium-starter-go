@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+	"os/signal"
 )
 
 var (
@@ -27,6 +29,22 @@ func init() {
 }
 
 func main() {
+	// Handle interrups
+	interruptChan := make(chan os.Signal, 1)
+	signal.Notify(interruptChan, os.Interrupt)
+	go func() {
+		for _ = range interruptChan {
+			if shouldExit {
+				fmt.Println("Received second interrupt, exiting immediately.")
+				os.Exit(1)
+			}
+
+			fmt.Println("Received interrupt. Waiting for running game(s) to end.")
+			fmt.Println("Send interrupt again to exit immediately.")
+			shouldExit = true
+		}
+	}()
+
 	c := &Client{
 		Server:    "http://vindinium.org",
 		Key:       "3oli39f3",
@@ -34,7 +52,18 @@ func main() {
 		ArenaMode: false,
 	}
 
-	result := c.Play()
-	fmt.Println(result)
-	fmt.Println(result.LastState.ViewURL)
+	for {
+		result := c.Play()
+		fmt.Println(result)
+		fmt.Println(result.LastState.ViewURL)
+
+		numGames--
+		if numGames <= 0 {
+			break
+		}
+
+		if shouldExit {
+			break
+		}
+	}
 }
