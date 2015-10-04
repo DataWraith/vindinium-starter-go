@@ -7,10 +7,10 @@ import "../../vindinium/"
 
 type Bot struct{}
 
-func (b *Bot) Move(state vindinium.State) vindinium.Direction {
+func (b *Bot) Move(*vindinium.State) vindinium.Direction {
 	return vindinium.Stay
 }
 
-func (b *Bot) EndOfGame(error, vindinium.State) {
+func (b *Bot) EndOfGame(error, *vindinium.State) {
 	// Do nothing
 }

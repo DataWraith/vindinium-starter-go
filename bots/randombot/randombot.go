@@ -15,7 +15,7 @@ import (
 
 type Bot struct{}
 
-func (b *Bot) Move(s v.State) v.Direction {
+func (b *Bot) Move(s *v.State) v.Direction {
 	validDirections := make([]v.Direction, 0, 4)
 
 	for _, dir := range v.NESW {
@@ -56,7 +56,7 @@ func (b *Bot) Move(s v.State) v.Direction {
 	return validDirections[rand.Intn(len(validDirections))]
 }
 
-func (b *Bot) EndOfGame(err error, s v.State) {
+func (b *Bot) EndOfGame(err error, s *v.State) {
 	gameID := s.Game.ID
 
 	if err != nil {

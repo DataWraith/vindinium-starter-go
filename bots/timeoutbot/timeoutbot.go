@@ -10,12 +10,12 @@ import (
 
 type Bot struct{}
 
-func (b *Bot) Move(s v.State) v.Direction {
+func (b *Bot) Move(s *v.State) v.Direction {
 	time.Sleep(2 * time.Second)
 	return v.Stay
 }
 
-func (b *Bot) EndOfGame(err error, s v.State) {
+func (b *Bot) EndOfGame(err error, s *v.State) {
 	gameID := s.Game.ID
 
 	if err != nil {

@@ -30,7 +30,7 @@ func (c *Client) Play() {
 	if err == nil {
 		err = c.playGame()
 	}
-	c.Bot.EndOfGame(err, c.state)
+	c.Bot.EndOfGame(err, &c.state)
 }
 
 func (c *Client) startGame() error {
@@ -58,7 +58,7 @@ func (c *Client) playGame() error {
 			return nil
 		}
 
-		dir := c.Bot.Move(c.state)
+		dir := c.Bot.Move(&c.state)
 
 		formValues := make(url.Values)
 		formValues.Set("key", c.Key)
