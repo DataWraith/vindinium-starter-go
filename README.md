@@ -92,7 +92,8 @@ The client takes the following commandline switches:
 * `-c <number of games>`
 
     How many games you want to play (defaults to 1). If you specify 0 here, the
-    client will continue to play games until interrupted.
+    client will continue to play games until interrupted. Note that a game will
+    be counted multiple times if more than one instance of the bot participates.
 
 * `-j <number of instances>`
 
