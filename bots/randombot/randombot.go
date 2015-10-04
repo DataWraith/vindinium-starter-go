@@ -16,40 +16,44 @@ import (
 type Bot struct{}
 
 func (b *Bot) Move(s v.State) v.Direction {
-	for i := 0; i < 10; i++ {
-		// Pick a random direction
-		randDir := v.NESW[rand.Intn(4)]
+	validDirections := make([]v.Direction, 0, 4)
 
-		newPos := s.Game.Board.To(s.Hero.Pos, randDir)
+	for _, dir := range v.NESW {
+		newPos := s.Game.Board.To(s.Hero.Pos, dir)
 		tile := s.Game.Board.TileAt(newPos)
 
-		// We can't walk through a wall
-		if tile == v.WallTile {
-			continue
-		}
+		switch tile {
+		case v.WallTile:
+			// We can't walk through a Wall
 
-		// We can't walk through a hero
-		if tile == v.HeroTile {
-			continue
-		}
+		case v.HeroTile:
+			// We can't walk through a Hero
 
-		// We can only enter a Tavern if we have enough gold
-		if tile == v.TavernTile && s.Hero.Gold < 2 {
-			continue
-		}
+		case v.TavernTile:
+			// We can enter a tavern if we have gold
+			if s.Hero.Gold >= 2 {
+				validDirections = append(validDirections, dir)
+			}
 
-		// We can only conquer a Mine if we don't own it
-		if tile == v.MineTile && s.Game.Board.MineOwner[newPos] == s.Hero.ID {
-			continue
-		}
+		case v.MineTile:
+			// We can conquer a mine if we have enough Life and it doesn't belong to us already
+			if s.Hero.Life > 20 && s.Game.Board.MineOwner[newPos] != s.Hero.ID {
+				validDirections = append(validDirections, dir)
+			}
 
-		// We can walk in the chosen direction
-		return randDir
+		case v.AirTile:
+			// We can always walk through an AirTile
+			validDirections = append(validDirections, dir)
+		}
 	}
 
-	// We tried to walk into a random direction 10 times and it didn't work, so
-	// I guess we're staying right where we are.
-	return v.Stay
+	// If we don't have a direction to move in, stay put.
+	if len(validDirections) == 0 {
+		return v.Stay
+	}
+
+	// Otherwise move in a random valid direction
+	return validDirections[rand.Intn(len(validDirections))]
 }
 
 func (b *Bot) EndOfGame(err error, s v.State) {
