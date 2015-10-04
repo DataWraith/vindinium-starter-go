@@ -9,10 +9,11 @@ import (
 type Board struct {
 	Size int
 
-	Tiles     []Tile
 	HeroID    map[Position]int
 	MineOwner map[Position]int
 	Taverns   map[Position]struct{}
+
+	tiles []Tile
 }
 
 // TileAt returns the tile at the given board position. If the given position
@@ -28,7 +29,7 @@ func (b Board) TileAt(pos Position) Tile {
 
 	// The positions sent from the server follow a different convention, so
 	// we can't use pos.Y*b.Size + pos.X here
-	return b.Tiles[pos.X*b.Size+pos.Y]
+	return b.tiles[pos.X*b.Size+pos.Y]
 }
 
 // To is a convenience function that returns the position that lies in the
@@ -52,10 +53,11 @@ func newBoard(size int, tiles string) (Board, error) {
 	b := Board{
 		Size: size,
 
-		Tiles:     make([]Tile, size*size),
 		HeroID:    make(map[Position]int),
 		MineOwner: make(map[Position]int),
 		Taverns:   make(map[Position]struct{}),
+
+		tiles: make([]Tile, size*size),
 	}
 
 	if len(tiles) != size*size*2 {
@@ -68,48 +70,48 @@ func newBoard(size int, tiles string) (Board, error) {
 
 			switch tiles[2*idx : 2*idx+2] {
 			case "  ":
-				b.Tiles[idx] = AirTile
+				b.tiles[idx] = AirTile
 
 			case "##":
-				b.Tiles[idx] = WallTile
+				b.tiles[idx] = WallTile
 
 			case "[]":
-				b.Tiles[idx] = TavernTile
+				b.tiles[idx] = TavernTile
 				b.Taverns[Position{x, y}] = struct{}{}
 
 			case "$-":
-				b.Tiles[idx] = MineTile
+				b.tiles[idx] = MineTile
 
 			case "$1":
-				b.Tiles[idx] = MineTile
+				b.tiles[idx] = MineTile
 				b.MineOwner[Position{x, y}] = 1
 
 			case "$2":
-				b.Tiles[idx] = MineTile
+				b.tiles[idx] = MineTile
 				b.MineOwner[Position{x, y}] = 2
 
 			case "$3":
-				b.Tiles[idx] = MineTile
+				b.tiles[idx] = MineTile
 				b.MineOwner[Position{x, y}] = 3
 
 			case "$4":
-				b.Tiles[idx] = MineTile
+				b.tiles[idx] = MineTile
 				b.MineOwner[Position{x, y}] = 4
 
 			case "@1":
-				b.Tiles[idx] = HeroTile
+				b.tiles[idx] = HeroTile
 				b.HeroID[Position{x, y}] = 1
 
 			case "@2":
-				b.Tiles[idx] = HeroTile
+				b.tiles[idx] = HeroTile
 				b.HeroID[Position{x, y}] = 2
 
 			case "@3":
-				b.Tiles[idx] = HeroTile
+				b.tiles[idx] = HeroTile
 				b.HeroID[Position{x, y}] = 3
 
 			case "@4":
-				b.Tiles[idx] = HeroTile
+				b.tiles[idx] = HeroTile
 				b.HeroID[Position{x, y}] = 4
 
 			default:
