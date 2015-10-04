@@ -60,7 +60,6 @@ func (c *Client) startGame() error {
 func (c *Client) playGame() error {
 	for {
 		if c.state.Game.Finished {
-			fmt.Println(c.state)
 			return nil
 		}
 
