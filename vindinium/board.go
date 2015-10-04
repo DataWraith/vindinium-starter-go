@@ -97,6 +97,7 @@ func newBoard(size int, tiles string) (Board, error) {
 
 			case "$-":
 				b.tiles[idx] = MineTile
+				b.MineOwner[Position{x, y}] = 0
 
 			case "$1":
 				b.tiles[idx] = MineTile
