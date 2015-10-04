@@ -10,3 +10,7 @@ type Bot struct{}
 func (b *Bot) Move(state vindinium.State) vindinium.Direction {
 	return vindinium.Stay
 }
+
+func (b *Bot) EndOfGame(error, vindinium.State) {
+	// Do nothing
+}

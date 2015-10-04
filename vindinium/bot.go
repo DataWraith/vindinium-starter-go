@@ -4,4 +4,5 @@ package vindinium
 // actually play Vindinium.
 type Bot interface {
 	Move(State) Direction
+	EndOfGame(error, State)
 }

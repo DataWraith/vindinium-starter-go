@@ -7,6 +7,7 @@
 package randombot
 
 import (
+	"fmt"
 	"math/rand"
 
 	v "../../vindinium"
@@ -49,4 +50,18 @@ func (b *Bot) Move(s v.State) v.Direction {
 	// We tried to walk into a random direction 10 times and it didn't work, so
 	// I guess we're staying right where we are.
 	return v.Stay
+}
+
+func (b *Bot) EndOfGame(err error, s v.State) {
+	gameID := s.Game.ID
+
+	if err != nil {
+		fmt.Printf("Game %s aborted due to error: %v", gameID, err)
+		return
+	}
+
+	fmt.Printf("Game %s finished:\n", gameID)
+	for _, h := range s.Game.Heroes {
+		fmt.Printf("%4d %s\n", h.Gold, h.Name)
+	}
 }
