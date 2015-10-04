@@ -32,9 +32,7 @@ This project has the following differences to the official starter-kit:
 
 * Multi-instance mode
 
-    Multiple instances of a bot can be run in parallel. Make sure your machine
-    has enough CPU power to support bots running in parallel, or you may run
-    into timeout issues.
+    You can run multiple instances of a bot in parallel.
 
 * Graceful shutdown
 
@@ -100,6 +98,13 @@ The client takes the following commandline switches:
 * `-j <number of instances>`
 
     How many instances of the bot to run in parallel. Defaults to 1.
+
+    Make sure your machine has enough CPU power to support bots running in
+    parallel, or you may run into timeout issues.
+
+    You probably don't want to run more bots than you have CPU cores, but if
+    you do, make sure that the GOMAXPROCS environment variable is set to a
+    high enough value.
 
 
 ### Writing your own bot
