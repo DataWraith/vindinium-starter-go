@@ -56,7 +56,7 @@ func (b *Bot) EndOfGame(err error, s v.State) {
 	gameID := s.Game.ID
 
 	if err != nil {
-		fmt.Printf("Game %s aborted due to error: %v", gameID, err)
+		fmt.Printf("Game %s aborted due to error: %v\n", gameID, err)
 		return
 	}
 
