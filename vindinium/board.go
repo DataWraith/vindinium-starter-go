@@ -32,8 +32,8 @@ func (b Board) TileAt(pos Position) Tile {
 	return b.tiles[pos.X*b.Size+pos.Y]
 }
 
-// To is a convenience function that returns the position that lies in the
-// direction `dir` of the tile at Position `pos`.
+// To returns the position that lies in the direction `dir` of the tile at
+// Position `pos`.
 func (b Board) To(pos Position, dir Direction) Position {
 	switch dir {
 	case North:
@@ -49,8 +49,8 @@ func (b Board) To(pos Position, dir Direction) Position {
 	}
 }
 
-// Neighbors is a convenience function that returns an array with the positions
-// that lie adjacent to the given position.
+// Neighbors returns an array with the positions that lie adjacent to the given
+// position.
 func (b Board) Neighbors(pos Position) [4]Position {
 	return [4]Position{
 		b.To(pos, North),
