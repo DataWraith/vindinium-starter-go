@@ -185,17 +185,13 @@ func TestUnmarshalling(t *testing.T) {
 
 	assertUnmarshalling(t, "Game.Board.Size", 18, s.Game.Board.Size)
 
-	if len(s.Game.Board.Tiles) != 18*18 {
-		t.Errorf("Game.Board.Tiles has wrong size. Expected %v, got %v.", 18*18, len(s.Game.Board.Tiles))
-	}
-
 	// Do a couple of spot checks of the board
 	if s.Game.Board.TileAt(Position{0, 0}) != WallTile {
 		t.Errorf("Expected tile at (0,0) to be a WallTile, got %v.", s.Game.Board.TileAt(Position{0, 0}))
 	}
 
 	if s.Game.Board.TileAt(Position{0, 7}) != AirTile {
-		t.Errorf("Expected tile at (0,7) to be an AirTile, got %v.", s.Game.Board.TileAt(Position{4, 8}))
+		t.Errorf("Expected tile at (0,7) to be an AirTile, got %v.", s.Game.Board.TileAt(Position{0, 7}))
 	}
 
 	if s.Game.Board.TileAt(Position{4, 8}) != HeroTile {
@@ -222,6 +218,6 @@ func TestUnmarshalling(t *testing.T) {
 	assertUnmarshalling(t, "Game.Hero.Crashed", false, s.Hero.Crashed)
 
 	assertUnmarshalling(t, "Token", "lte0", s.Token)
-	assertUnmarshalling(t, "ViewUrl", "http://localhost:9000/s2xh3aig", s.ViewUrl)
-	assertUnmarshalling(t, "PlayUrl", "http://localhost:9000/api/s2xh3aig/lte0/play", s.PlayUrl)
+	assertUnmarshalling(t, "ViewURL", "http://localhost:9000/s2xh3aig", s.ViewURL)
+	assertUnmarshalling(t, "PlayURL", "http://localhost:9000/api/s2xh3aig/lte0/play", s.PlayURL)
 }
