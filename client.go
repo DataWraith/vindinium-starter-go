@@ -23,18 +23,13 @@ type Client struct {
 }
 
 // Play plays a game using the given client.
-func (c *Client) Play() GameResult {
+func (c *Client) Play() {
 	var err error
 
 	err = c.startGame()
 	if err == nil {
 		err = c.playGame()
 		c.Bot.EndOfGame(err, c.state)
-	}
-
-	return GameResult{
-		Error:     err,
-		LastState: c.state,
 	}
 }
 
