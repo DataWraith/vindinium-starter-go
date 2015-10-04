@@ -77,10 +77,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Start numParallel instances of the bot
-	gameChan := make(chan struct{}, numParallel)
-	doneChan := make(chan struct{}, numParallel)
+	gameChan := make(chan struct{})
+	doneChan := make(chan struct{})
 
+	// Start numParallel instances of the bot
 	for i := 0; i < numParallel; i++ {
 		c := &Client{
 			Server:    server,
@@ -91,7 +91,12 @@ func main() {
 
 		go func(c *Client) {
 			for _ = range gameChan {
-				c.Play()
+				// Extra check because in most situations we already have the next game
+				// buffered inside gameChan, and we don't want to start that if the user
+				// wants us to quit.
+				if !shouldExit {
+					c.Play()
+				}
 			}
 			doneChan <- struct{}{}
 		}(c)
