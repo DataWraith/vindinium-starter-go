@@ -1,3 +1,9 @@
+// Package randombot implements a simple bot that moves into a random valid
+// direction. That is, it avoids making moves that don't do anything (such as
+// walking into a wall).
+//
+// It also prints out part of the game state at the end of the game to
+// demonstrate the use of the EndOfGame function.
 package randombot
 
 import (
