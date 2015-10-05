@@ -11,7 +11,7 @@ type Board struct {
 	Size      int                   // The height/width of the board (the board is always square)
 	HeroID    map[Position]HeroID   // The ID of the Hero at the given position (or zero if there is no hero there)
 	MineOwner map[Position]HeroID   // The ID of the Hero owning the mine at the given position (or zero)
-	Taverns   map[Position]struct{} // The locations of all Tavern on the board
+	Taverns   map[Position]struct{} // The locations of all Taverns on the board
 
 	tiles []Tile
 }
