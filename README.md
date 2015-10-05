@@ -139,6 +139,14 @@ the game outcome or want to print out statistics of the match -- `err` is the
 error that caused the game to be aborted (if any) and `s` is the last-received
 gamestate.
 
+After you have written your bot, register it in `bot_registry.go` and recompile
+the client with `go build`.
+
+Take a look at the
+[GoDoc](https://godoc.org/github.com/DataWraith/vindinium-starter-go/vindinium)
+for the starter-kit to see a description of all data structures used and
+functions provided.
+
 ## Questions
 
 Feel free to open GitHub issues for any questions you may have.
