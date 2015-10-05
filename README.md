@@ -126,7 +126,7 @@ Your bot's code lives in its own package. To interact with the client, you
 have to import it (`import "../../vindinium"`) and then create a `struct` that
 conforms to the `vindinium.Bot` interface.
 
-    `type Bot struct {}`
+    type Bot struct {}
 
 To implement the interface, you have to implement two methods:
 
