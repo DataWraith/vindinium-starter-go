@@ -177,8 +177,9 @@ type jsonBoard struct {
 	Tiles string
 }
 
-// UnmarshalJSON is called by the JSON unmarshaller. It takes care to parse the
-// tile-string sent by the server into the useable Board representation.
+// UnmarshalJSON is called by the JSON unmarshaller. It takes care to parse
+// the tile-string sent by the server into the useable Board representation.
+// You do not need to call this yourself.
 func (b *Board) UnmarshalJSON(text []byte) error {
 	var jb jsonBoard
 
