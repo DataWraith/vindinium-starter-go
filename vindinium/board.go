@@ -49,6 +49,17 @@ func (b Board) To(pos Position, dir Direction) Position {
 	}
 }
 
+// DirectionTo returns the direction a bot needs to walk in to reach an adjacent
+// Position. Returns Stay if the two given Positions are not adjacent.
+func (b Board) DirectionTo(from, to Position) Direction {
+	for _, dir := range NESW {
+		if b.To(from, dir) == to {
+			return dir
+		}
+	}
+	return Stay
+}
+
 // Neighbors returns an array with the positions that lie adjacent to the given
 // position.
 func (b Board) Neighbors(pos Position) [4]Position {
