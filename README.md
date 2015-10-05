@@ -130,8 +130,8 @@ conforms to the `vindinium.Bot` interface.
 
 To implement the interface, you have to implement two methods:
 
-1. `func (b *Bot) Move(s vindinium.State) vindinium.Direction {}`
-2. `func (b *Bot) EndOfGame(err error, s vindinium.State) {}`
+1. `func (b *Bot) Move(s *vindinium.State) vindinium.Direction {}`
+2. `func (b *Bot) EndOfGame(err error, s *vindinium.State) {}`
 
 The first method is where the meat of your bot is. It takes a gamestate object
 and returns your move. The second method is useful for bots that can learn from
