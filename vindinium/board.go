@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-// Board represents the current game board
+// Board represents the current game board.
 type Board struct {
 	Size      int                   // The height/width of the board (the board is always square)
 	HeroID    map[Position]HeroID   // The ID of the Hero at the given position (or zero if there is no hero there)
@@ -60,12 +60,12 @@ func (b Board) Neighbors(pos Position) [4]Position {
 	}
 }
 
-// Passable returns whether the given position on the board is passable
+// Passable returns whether the given position on the board is passable.
 func (b Board) Passable(pos Position) bool {
 	return b.TileAt(pos) == AirTile
 }
 
-// String returns the String representation of the Board
+// String returns a string representation of the board (ASCII-Art).
 func (b Board) String() string {
 	result := ""
 

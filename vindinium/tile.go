@@ -1,6 +1,6 @@
 package vindinium
 
-// Tile represents the type of a tile on the board
+// Tile represents the type of a tile on the board.
 type Tile byte
 
 const (

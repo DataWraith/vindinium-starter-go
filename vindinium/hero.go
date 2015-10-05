@@ -1,6 +1,6 @@
 package vindinium
 
-// Hero contains information about a single hero in the game
+// Hero contains information about a single hero in the game.
 type Hero struct {
 	ID        HeroID
 	Name      string

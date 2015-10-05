@@ -1,6 +1,6 @@
 package vindinium
 
-// Direction represents one of the possible movement directions in Vindinium
+// Direction represents one of the possible movement directions in Vindinium.
 type Direction string
 
 const (
