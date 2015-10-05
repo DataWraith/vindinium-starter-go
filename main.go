@@ -102,6 +102,7 @@ func main() {
 		}(c)
 	}
 
+	// Play the actual games
 	if numGames == 0 {
 		// Continuous mode
 		for !shouldExit {

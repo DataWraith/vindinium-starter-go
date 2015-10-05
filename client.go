@@ -33,6 +33,7 @@ func (c *Client) Play() {
 	c.Bot.EndOfGame(err, &c.state)
 }
 
+// startGame makes the initial request to the vindinium server
 func (c *Client) startGame() error {
 	startURL := c.getStartURL()
 	formValues := make(url.Values)
@@ -52,6 +53,7 @@ func (c *Client) startGame() error {
 	return c.formatResponseError(resp)
 }
 
+// playGame uses the bot to make all moves of a game
 func (c *Client) playGame() error {
 	for {
 		if c.state.Game.Finished {
@@ -82,6 +84,7 @@ func (c *Client) playGame() error {
 	}
 }
 
+// getStartURL returns the URL used to enqueue in a game
 func (c Client) getStartURL() string {
 	if c.ArenaMode {
 		return c.Server + "/api/arena"
@@ -89,6 +92,7 @@ func (c Client) getStartURL() string {
 	return c.Server + "/api/training"
 }
 
+// unmarshalState extracts the gamestate from a server response
 func (c *Client) unmarshalState(body io.ReadCloser) error {
 	data, err := ioutil.ReadAll(body)
 	if err != nil {
@@ -99,6 +103,8 @@ func (c *Client) unmarshalState(body io.ReadCloser) error {
 	return err
 }
 
+// formatResponseError is invoked when something went wrong and formats an error
+// message according to the HTTP status code the serve returned.
 func (c Client) formatResponseError(resp *http.Response) error {
 	reason, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
