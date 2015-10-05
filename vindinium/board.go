@@ -8,11 +8,10 @@ import (
 
 // Board represents the current game board
 type Board struct {
-	Size int
-
-	HeroID    map[Position]int
-	MineOwner map[Position]int
-	Taverns   map[Position]struct{}
+	Size      int                   // The height/width of the board (the board is always square)
+	HeroID    map[Position]int      // The ID of the Hero at the given position (or zero if there is no hero there)
+	MineOwner map[Position]int      // The ID of the Hero owning the mine at the given position (or zero)
+	Taverns   map[Position]struct{} // The locations of all Tavern on the board
 
 	tiles []Tile
 }
