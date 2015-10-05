@@ -135,7 +135,7 @@ func TestUnmarshalling(t *testing.T) {
 	assertUnmarshalling(t, "Game.Turn", 1100, s.Game.Turn)
 	assertUnmarshalling(t, "Game.MaxTurns", 1200, s.Game.MaxTurns)
 
-	assertUnmarshalling(t, "Game.Heroes[0].ID", 1, s.Game.Heroes[0].ID)
+	assertUnmarshalling(t, "Game.Heroes[0].ID", HeroID(1), s.Game.Heroes[0].ID)
 	assertUnmarshalling(t, "Game.Heroes[0].Name", "vjousse", s.Game.Heroes[0].Name)
 	assertUnmarshalling(t, "Game.Heroes[0].UserID", "j07ws669", s.Game.Heroes[0].UserID)
 	assertUnmarshalling(t, "Game.Heroes[0].Elo", 1200, s.Game.Heroes[0].Elo)
@@ -147,7 +147,7 @@ func TestUnmarshalling(t *testing.T) {
 	assertUnmarshalling(t, "Game.Heroes[0].SpawnPos", Position{5, 6}, s.Game.Heroes[0].SpawnPos)
 	assertUnmarshalling(t, "Game.Heroes[0].Crashed", true, s.Game.Heroes[0].Crashed)
 
-	assertUnmarshalling(t, "Game.Heroes[1].ID", 2, s.Game.Heroes[1].ID)
+	assertUnmarshalling(t, "Game.Heroes[1].ID", HeroID(2), s.Game.Heroes[1].ID)
 	assertUnmarshalling(t, "Game.Heroes[1].Name", "vjousse", s.Game.Heroes[1].Name)
 	assertUnmarshalling(t, "Game.Heroes[1].UserID", "j07ws669", s.Game.Heroes[1].UserID)
 	assertUnmarshalling(t, "Game.Heroes[1].Elo", 1200, s.Game.Heroes[1].Elo)
@@ -159,7 +159,7 @@ func TestUnmarshalling(t *testing.T) {
 	assertUnmarshalling(t, "Game.Heroes[1].SpawnPos", Position{12, 6}, s.Game.Heroes[1].SpawnPos)
 	assertUnmarshalling(t, "Game.Heroes[1].Crashed", true, s.Game.Heroes[1].Crashed)
 
-	assertUnmarshalling(t, "Game.Heroes[2].ID", 3, s.Game.Heroes[2].ID)
+	assertUnmarshalling(t, "Game.Heroes[2].ID", HeroID(3), s.Game.Heroes[2].ID)
 	assertUnmarshalling(t, "Game.Heroes[2].Name", "vjousse", s.Game.Heroes[2].Name)
 	assertUnmarshalling(t, "Game.Heroes[2].UserID", "j07ws669", s.Game.Heroes[2].UserID)
 	assertUnmarshalling(t, "Game.Heroes[2].Elo", 1200, s.Game.Heroes[2].Elo)
@@ -171,7 +171,7 @@ func TestUnmarshalling(t *testing.T) {
 	assertUnmarshalling(t, "Game.Heroes[2].SpawnPos", Position{12, 11}, s.Game.Heroes[2].SpawnPos)
 	assertUnmarshalling(t, "Game.Heroes[2].Crashed", true, s.Game.Heroes[2].Crashed)
 
-	assertUnmarshalling(t, "Game.Heroes[3].ID", 4, s.Game.Heroes[3].ID)
+	assertUnmarshalling(t, "Game.Heroes[3].ID", HeroID(4), s.Game.Heroes[3].ID)
 	assertUnmarshalling(t, "Game.Heroes[3].Name", "vjousse", s.Game.Heroes[3].Name)
 	assertUnmarshalling(t, "Game.Heroes[3].UserID", "j07ws669", s.Game.Heroes[3].UserID)
 	assertUnmarshalling(t, "Game.Heroes[3].Elo", 1200, s.Game.Heroes[3].Elo)
@@ -205,7 +205,7 @@ func TestUnmarshalling(t *testing.T) {
 
 	assertUnmarshalling(t, "Game.Finished", true, s.Game.Finished)
 
-	assertUnmarshalling(t, "Game.Hero.ID", 4, s.Hero.ID)
+	assertUnmarshalling(t, "Game.Hero.ID", HeroID(4), s.Hero.ID)
 	assertUnmarshalling(t, "Game.Hero.Name", "vjousse", s.Hero.Name)
 	assertUnmarshalling(t, "Game.Hero.UserID", "j07ws669", s.Hero.UserID)
 	assertUnmarshalling(t, "Game.Hero.Elo", 1200, s.Hero.Elo)
