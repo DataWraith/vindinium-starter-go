@@ -80,8 +80,8 @@ func (b Board) Passable(pos Position) bool {
 func (b Board) String() string {
 	result := ""
 
-	for y := 0; y < b.Size; y++ {
-		for x := 0; x < b.Size; x++ {
+	for x := 0; x < b.Size; x++ {
+		for y := 0; y < b.Size; y++ {
 			switch b.TileAt(Position{x, y}) {
 			case AirTile:
 				result += "  "
