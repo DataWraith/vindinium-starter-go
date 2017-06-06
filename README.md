@@ -1,3 +1,5 @@
+**Status**: Stable and maintained. I will address Issues and Pull requests, but at this point, no new features are planned.
+
 # Vindinium starter-kit for Go
 
 This is an alternative Go starter-kit for the [Vindinium] AI Challenge.
